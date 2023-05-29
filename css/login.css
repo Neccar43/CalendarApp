@@ -1,0 +1,204 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+
+/* 
+Color Palet 
+#b38add
+#373c4f
+
+*/
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #373c4f;
+}
+
+.container__login {
+  position: relative;
+  max-width: 43rem;
+  width: 100%;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin: 0 2rem;
+}
+
+.container__login .forms {
+  display: flex;
+  align-items: center;
+  height: 44rem;
+  width: 200%;
+  transition: height 0.2s ease;
+}
+
+.container__login .form {
+  width: 50%;
+  padding: 3rem;
+  background-color: #fff;
+  transition: margin-left 0.18s ease;
+}
+
+.container__login.active .login {
+  margin-left: -50%;
+  opacity: 0;
+  transition: margin-left 0.18s ease, opacity 0.15s ease;
+}
+
+.container__login .signup {
+  opacity: 0;
+  transition: opacity 0.09s ease;
+}
+.container__login.active .signup {
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}
+
+.container__login.active .forms {
+  height: 71rem;
+}
+.container__login .form .title {
+  position: relative;
+  font-size: 2.7rem;
+  font-weight: 600;
+}
+
+.form .title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 3rem;
+  background-color: #373c4f;
+  border-radius: 25px;
+}
+
+.form .input-field {
+  position: relative;
+  height: 3.4rem;
+  width: 100%;
+  margin-top: 3rem;
+}
+
+.input-field input {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  padding: 0 4rem;
+  border: none;
+  outline: none;
+  font-size: 1.6rem;
+  border-bottom: 2px solid #ccc;
+  border-top: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.input-field input:is(:focus, :valid) {
+  border-bottom-color: #373c4f;
+}
+
+.input-field i {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+  font-size: 2.3rem;
+  transition: all 0.2s ease;
+}
+
+.input-field input:is(:focus, :valid) ~ i {
+  color: #373c4f;
+}
+
+.input-field i.icon {
+  left: 0;
+}
+.input-field i.showHidePw {
+  right: 0;
+  cursor: pointer;
+  padding: 1rem;
+}
+
+.form .checkbox-text {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+.checkbox-text .checkbox-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  margin-right: 2rem;
+}
+
+.checkbox-content input {
+  margin-right: 0.4rem;
+  accent-color: #b38add;
+}
+
+.form .text {
+  color: #333;
+  font-size: 1.4rem;
+}
+
+.form a.text {
+  color: #b38add;
+  text-decoration: none;
+}
+.form a:hover {
+  text-decoration: underline;
+}
+
+.form .button {
+  margin-top: 3rem;
+}
+
+.form .button input {
+  border: none;
+  color: #fff;
+  font-size: 1.7rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  border-radius: 6px;
+  background-color: #b38add;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.form .login-signup {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}
+
+.hide__arrow::-webkit-outer-spin-button,
+.hide__arrow::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
