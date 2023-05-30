@@ -1,0 +1,698 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+/* 1-) nice scroll bar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #f5f5f5;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-thumb {
+  background: #b38add;
+  border-radius: 50px;
+}
+/* 1-) end */
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 3rem;
+  background-color: #e2e1dc;
+}
+
+.container {
+  position: relative;
+  width: 120rem;
+  min-height: 85rem;
+  margin: 0 auto;
+  padding: 5px;
+  color: #fff;
+  display: flex;
+
+  border-radius: 10px;
+  background-color: #373c4f;
+}
+.left {
+  width: 60%;
+  padding: 2rem;
+}
+
+/* Takvim Yaprağı için */
+.calendar {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  color: #878895;
+  border-radius: 5px;
+  background-color: #fff;
+}
+/* 2-) Takvimin arkasında 2 tane gölgelik için */
+.calendar::before,
+.calendar::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  width: 1.2rem;
+  height: 97%;
+  border-radius: 0 5px 5px 0;
+  background-color: #d3d4d6d7;
+  transform: translateY(-50%);
+}
+.calendar::before {
+  height: 94%;
+  left: calc(100% + 12px);
+  background-color: rgb(153, 153, 153);
+}
+/* 2-) end */
+
+.calendar .month {
+  width: 100%;
+  height: 15rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 50px;
+  font-size: 1.9rem;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+/* 3-) Aylar arasında geçiş için corousel */
+.calendar .month .prev,
+.calendar .month .next {
+  cursor: pointer;
+}
+.calendar .month .prev:hover,
+.calendar .month .next:hover {
+  color: #b38add;
+}
+/* 3-) end */
+
+.calendar .weekdays {
+  width: 100%;
+  height: 10rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  font-size: 1.6rem;
+  font-weight: 500;
+  text-transform: capitalize; /* Tüm günlerin sadece ilk harfi büyük olması için */
+}
+
+/* 4-) Haftanın 7 günü için  */
+.weekdays div {
+  width: 14.28%; /* 7*14.28 = 100 */
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* 4-) end */
+
+/* 5-) Bir takvim yaprağındaki 30 gün için */
+.calendar .days {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 0 2rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 2rem;
+}
+/* 5-) end */
+
+/* 6-) Bir takvim yaprağındaki 30 günden her birisi için */
+.calendar .days .day {
+  width: 14.28%;
+  height: 9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #b38add;
+  border: 1px solid #f5f5f5;
+}
+/* 6-) end */
+
+/* 7-) Bu alt kısmı anlamadım */
+.calendar .days .day:nth-child(7n + 1) {
+  border-left: 2px solid #f5f5f5;
+}
+.calendar .days .day:nth-child(7n) {
+  border-right: 2px solid #f5f5f5;
+}
+.calendar .days .day:nth-child(-n + 7) {
+  border-top: 2px solid #f5f5f5;
+}
+.calendar .days .day:nth-child(n + 29) {
+  border-bottom: 2px solid #f5f5f5;
+}
+/* 7-) end */
+
+/* 8-) Sayfada gezinirken SADECE mevcut ayın günlerine hover olması için */
+.calendar .days .day:not(.prev-date, .next-date):hover {
+  color: #fff;
+  background-color: #b38add;
+}
+/* 8-) end */
+
+/* 9-)  */
+.calendar .days .prev-date,
+.calendar .days .next-date {
+  color: #b3b3b3;
+}
+/* 9-) end */
+
+/* 10-) Kullanıcının takvimdeki tıkladığı gün için (default-> today) */
+.calendar .days .active {
+  position: relative;
+  font-size: 3.2rem;
+  color: #fff;
+  background-color: #b38add;
+}
+/* active clasına sahip güne shadow ekledik */
+.calendar .days .active::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 0 10px 2px #b38add;
+}
+/* 10-) end */
+
+/* 11-) Today için active olan font-size değerini ayarladık */
+.calendar .days .today {
+  font-size: 3.2rem;
+}
+/* 11-) end */
+
+/* 12-) Olay eklenen günün altında çizgi olması böylece belli olması için */
+.calendar .days .event {
+  position: relative;
+}
+.calendar .days .event::after {
+  content: "";
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  width: 75%;
+  height: 6px;
+  border-radius: 3rem;
+  transform: translateX(-50%);
+  background-color: #b38add;
+}
+
+/* 12-)end */
+
+/* 13-) Günlere hover olunca renk mor oluyordu. Event olan günüde altında rengi mor çizgi olduğu için eventlı güne hover olunca belli olması için hover rengini değiştidik */
+.calendar .days .day:hover.event::after {
+  background-color: #fff;
+}
+/* 13-) end */
+
+/* 14-) Herhangi bir güne tıklayınca arka plan mor oluyordu. Eventlı günlerde de mor çizgi var. O zaman eventli günlerde bu çizginin tıpkı hoverda olduğu gibi mor olması için */
+.calendar .days .active.event::after {
+  background-color: #fff;
+  bottom: 20%;
+}
+/* 14-) end */
+
+/* 15-) Eventlı ve active günlerde alttaki çizgi ile sayı sıkışık. Aralarındaki mesafeyi artırmak için */
+.calendar .days .active.event {
+  padding-bottom: 1rem;
+}
+/* 15-) end */
+
+.calendar .goto-today {
+  width: 100%;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* gap: 5px; */
+  padding: 0 2rem;
+  margin-bottom: 2rem;
+  color: #b38add;
+}
+.calendar .goto-today .goto {
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  overflow: hidden; /* Hover olunca Go yazısında taşma geldiği için */
+  border: 1px solid #b38add;
+}
+.calendar .goto-today .goto input {
+  width: 100%;
+  /* height: 3rem; Bunu kapattım çünkü Go'ya hover olunca açık kalıyor */
+  outline: none;
+  border: none;
+  padding: 0 2rem;
+  color: #b38add;
+  border-radius: 5px;
+}
+.calendar .goto-today button {
+  padding: 5px 1rem;
+  border: 1px solid #b38add;
+  border-radius: 5px;
+  background-color: transparent;
+  cursor: pointer;
+  color: #b38add;
+}
+.calendar .goto-today button:hover {
+  color: #fff;
+  background-color: #b38add;
+}
+.calendar .goto-today .goto button {
+  border: none;
+  border-left: 1px solid #b38add;
+  border-radius: 0;
+}
+
+/* Even Bölümü CSS'i */
+
+.container .right {
+  position: relative;
+  width: 40%;
+  min-height: 100%;
+  padding: 2rem 0;
+}
+
+.right .today-date {
+  width: 100%;
+  height: 5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4rem;
+  padding-left: 7rem;
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+  text-transform: capitalize;
+}
+.right .today-date .event-day {
+  font-size: 3.2rem;
+  font-weight: 500;
+}
+.right .today-date .event-current-time {
+  font-size: 1.8rem;
+  font-weight: 500;
+}
+.right .today-date .event-date {
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: #878895;
+}
+.events {
+  width: 100%;
+  height: 100%;
+  max-height: 600px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  padding-left: 4px;
+}
+.events .event {
+  position: relative;
+  width: 95%;
+  min-height: 70px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 5px;
+  padding: 0 2rem;
+  padding-left: 5rem;
+  color: #fff;
+  background: linear-gradient(90deg, #3f4458, transparent);
+  cursor: pointer;
+}
+/* even event */
+.events .event:nth-child(even) {
+  background: transparent;
+}
+.events .event:hover {
+  background: linear-gradient(90deg, #b38add, transparent);
+}
+.events .event .title {
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+}
+.events .event .title .event-title {
+  font-size: 1rem;
+  font-weight: 400;
+  margin-left: 2rem;
+}
+.events .event i {
+  color: #b38add;
+  font-size: 0.5rem;
+}
+.events .event:hover i {
+  color: #fff;
+}
+.events .event .event-time {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: #878895;
+  margin-left: 1.3rem;
+  pointer-events: none;
+}
+.events .event:hover .event-time {
+  color: #fff;
+}
+/* add tick in event after */
+.events .event::after {
+  content: "✓";
+  position: absolute;
+  top: 50%;
+  right: 0;
+  font-size: 4.8rem;
+  line-height: 1;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.3;
+  color: #b38add;
+  transform: translateY(-50%);
+}
+.events .event:hover::after {
+  display: flex;
+}
+.go-panel {
+  position: absolute;
+  bottom: 3rem;
+  right: 35rem;
+  width: 5.5rem;
+  height: 5.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.7rem;
+  color: #fff;
+  border: 2px solid #fff;
+  opacity: 0.5;
+  border-radius: 50%;
+  background-color: transparent;
+  cursor: pointer;
+}
+.add-event {
+  position: absolute;
+  bottom: 3rem;
+  right: 3rem;
+  width: 5.5rem;
+  height: 5.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  color: #878895;
+  border: 2px solid #878895;
+  opacity: 0.5;
+  border-radius: 50%;
+  background-color: transparent;
+  cursor: pointer;
+}
+.add-event:hover {
+  opacity: 1;
+}
+.add-event i {
+  pointer-events: none;
+}
+.events .no-event {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2.4rem;
+  font-weight: 500;
+  color: #878895;
+}
+.add-event-wrapper {
+  position: absolute;
+  bottom: 10rem;
+  left: 50%;
+  width: 90%;
+  max-height: 0;
+  overflow: hidden;
+  border-radius: 5px;
+  background-color: #fff;
+  transform: translateX(-50%);
+  transition: max-height 0.5s ease;
+}
+.add-event-wrapper.active {
+  max-height: 34rem;
+}
+.add-event-header {
+  width: 100%;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  color: #373c4f;
+  border-bottom: 1px solid #f5f5f5;
+}
+.add-event-header .close {
+  font-size: 2.4rem;
+  cursor: pointer;
+}
+.add-event-header .close:hover {
+  color: #b38add;
+}
+.add-event-header .title {
+  font-size: 2rem;
+  font-weight: 500;
+}
+.add-event-body {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 2rem;
+}
+.add-event-body .add-event-input {
+  width: 100%;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.add-event-body .add-event-input input {
+  width: 100%;
+  height: 100%;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #f5f5f5;
+  padding: 0 1rem;
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: #373c4f;
+}
+.add-event-body .add-event-input input::placeholder {
+  color: #a5a5a5;
+}
+.add-event-body .add-event-input input:focus {
+  border-bottom: 1px solid #b38add;
+}
+.add-event-body .add-event-input input:focus::placeholder {
+  color: #b38add;
+}
+.add-event-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.2rem;
+  padding-bottom: 2rem;
+}
+.add-event-footer .add-event-btn {
+  height: 4rem;
+  font-size: 1.6rem;
+  font-weight: 500;
+  outline: none;
+  border: none;
+  color: #fff;
+  background-color: #b38add;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 5px 1rem;
+  border: 1px solid #b38add;
+}
+.add-event-footer .add-event-btn:hover {
+  background-color: transparent;
+  color: #b38add;
+}
+
+/* media queries */
+
+@media screen and (max-width: 1000px) {
+  body {
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .container {
+    min-height: 100vh;
+    flex-direction: column;
+    border-radius: 0;
+  }
+  .container .left {
+    width: 100%;
+    height: 100%;
+    padding: 20px 0;
+  }
+  .container .right {
+    width: 100%;
+    height: 100%;
+    padding: 2rem 0;
+  }
+  .calendar::before,
+  .calendar::after {
+    top: 100%;
+    left: 50%;
+    width: 97%;
+    height: 1.2rem;
+    border-radius: 0 0 5px 5px;
+    transform: translateX(-50%);
+  }
+  .calendar::before {
+    width: 94%;
+    top: calc(100% + 12px);
+  }
+  .events {
+    padding-bottom: 34rem;
+  }
+  .add-event-wrapper {
+    bottom: 10rem;
+  }
+  .go-panel {
+    left: 3rem;
+  }
+}
+@media screen and (max-width: 500px) {
+  .calendar .month {
+    height: 7.5rem;
+  }
+  .calendar .weekdays {
+    height: 5rem;
+  }
+  .calendar .days .day {
+    height: 4rem;
+    font-size: 1.3rem;
+  }
+  .calendar .days .day.active,
+  .calendar .days .day.today {
+    font-size: 1rem;
+  }
+  .right .today-date {
+    padding: 2rem;
+  }
+}
+
+.credits {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  padding: 1rem;
+  font-size: 1.2rem;
+  color: #fff;
+  background-color: #b38add;
+}
+.credits a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+}
+.credits a:hover {
+  text-decoration: underline;
+}
+
+/* WELCOM */
+.welcome {
+  font-size: 2rem;
+  margin-left: 3rem;
+  text-align: end;
+}
+
+/* RİGHT TOP BTN*/
+.right-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+}
+.navigation {
+  background-color: black;
+}
+
+.right__btn--img {
+  width: 3.2rem;
+  border-radius: 50px;
+  float: left;
+}
+
+.logout {
+  font-size: 1.2rem;
+  font-family: "Oswald", sans-serif;
+  position: relative;
+  right: -18px;
+  bottom: -4px;
+  overflow: hidden;
+  letter-spacing: 3px;
+  opacity: 0;
+  transition: opacity 0.45s;
+  -webkit-transition: opacity 0.35s;
+}
+
+.right__top--btn {
+  text-decoration: none;
+  float: right;
+  padding: 1.2rem;
+  margin: 0;
+  color: white;
+  width: 5rem;
+  background-color: black;
+  transition: width 0.35s;
+  -webkit-transition: width 0.35s;
+  overflow: hidden;
+}
+
+.right__top--btn:hover {
+  width: 13rem;
+}
+
+.right__top--btn:hover .logout {
+  opacity: 0.9;
+}
+
+.right__top--btn {
+  text-decoration: none;
+}
+
+/* Go To Panel */
