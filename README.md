@@ -47,7 +47,6 @@ Bu takvim uygulaması, kullanıcıların olayları kaydetmelerini, hatırlatmala
 
 
 ### 4.**Çıkış Yapma:**
-* Takvimin sağ altındaki "PANEL" düğmesine tıklayın.
-* Bu zamana kadar kaydettiğiniz tüm olayların detaylı listesini göreceksiniz.
-* Sağ üst köşedeki "ÇIKIŞ YAP" düğmesine tıklayın.
+* Takvimin sağ üst köşesindeki profil resminin üzerine farenizi götürün.
+* Ortaya çıkan "ÇIKIŞ YAP" düğmesine tıklayın
 * Çıkan mesaj kutusundaki "Tamam" düğmesine tıklayın.
